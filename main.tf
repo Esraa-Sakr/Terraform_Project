@@ -5,6 +5,24 @@ provider "aws" {
   secret_key = "geBappWYzHEwMmimvPGsRvB1I6dM7zAx/dZeZmSB"
 }
 
+# Get Amazon Linux 2 AMI ID
+data "aws_ami" "amazon_linux_2" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["amazon"]
+}
+
+
 # Create VPC
 resource "aws_vpc" "terraform-vpc" {
   cidr_block = "10.0.0.0/16"
